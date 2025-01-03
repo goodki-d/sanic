@@ -52,6 +52,7 @@ from sanic.asgi import ASGIApp, Lifespan
 from sanic.base.root import BaseSanic
 from sanic.blueprint_group import BlueprintGroup
 from sanic.blueprints import Blueprint
+from sanic.cli.repl_ctx import REPLContext
 from sanic.compat import OS_IS_WINDOWS, enable_windows_color_support
 from sanic.config import SANIC_PREFIX, Config
 from sanic.exceptions import (
@@ -219,6 +220,7 @@ class Sanic(
         "strict_slashes",
         "websocket_enabled",
         "websocket_tasks",
+        "repl_ctx",
     )
 
     _app_registry: ClassVar[dict[str, Sanic]] = {}
@@ -382,6 +384,7 @@ class Sanic(
         self.strict_slashes: bool = strict_slashes
         self.websocket_enabled: bool = False
         self.websocket_tasks: set[Future[Any]] = set()
+        self.repl_ctx = REPLContext()
 
         # Register alternative method names
         self.go_fast = self.run
